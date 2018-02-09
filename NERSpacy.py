@@ -50,26 +50,12 @@ LABEL_OTHER = 'O'
 # https://explosion.ai/blog/pseudo-rehearsal-catastrophic-forgetting
 TRAIN_DATA = [
     ("Presiden terpilih  JOkO WidOdO   mengungkapkan pihaknya tidak akan membedakan spesifikasi kandidat menteri yang diusung Oleh partai pOlitik pengusung maupun pendukung.", {
-        'entities': [(0, 7, 'O')]
+        'entities': [(0, 8, 'O'), (9, 17, 'O'), (19, 23, 'B-PPL'), (24, 30, 'I-PPL'), (33, 46, 'O'), (53, 61, 'O'), (62, 67, 'O'), (68, 72, 'O'), (73, 83, 'O')]
     }),
-
-    ("Presiden terpilih  JOkO WidOdO   mengungkapkan pihaknya tidak akan membedakan spesifikasi kandidat menteri yang diusung Oleh partai pOlitik pengusung maupun pendukung.", {
-        'entities': [(9, 17, 'O')]
-    }),
-
-    ("Presiden terpilih  JOkO WidOdO   mengungkapkan pihaknya tidak akan membedakan spesifikasi kandidat menteri yang diusung Oleh partai pOlitik pengusung maupun pendukung.", {
-        'entities': [(20, 23, 'B-PPL')]
-    }),
-
-    ("Presiden terpilih  JOkO WidOdO   mengungkapkan pihaknya tidak akan membedakan spesifikasi kandidat menteri yang diusung Oleh partai pOlitik pengusung maupun pendukung.", {
-        'entities': [(25, 30, 'I-PPL')]
-    }),
-
-    ("Presiden terpilih  JOkO WidOdO   mengungkapkan pihaknya tidak akan membedakan spesifikasi kandidat menteri yang diusung Oleh partai pOlitik pengusung maupun pendukung.", {
-        'entities': [(34, 46, 'O')]
+        ("Presiden terpilih  JOkO WidOdO   mengungkapkan pihaknya tidak akan membedakan spesifikasi kandidat menteri yang diusung Oleh partai pOlitik pengusung maupun pendukung.", {
+        'entities': [(78, 89, 'O'), (90, 98, 'O'), (99, 106, 'O'), (107, 111, 'O'), (112, 119, 'O'), (120, 124, 'O'), (125, 139, 'O'), (140, 149, 'O'), (150, 156, 'O'), (157, 166, 'O'), (166, 167, 'O')]
     }),
 ]
-
 
 @plac.annotations(
     model=("Model name. Defaults to blank 'en' model.", "option", "m", str),
