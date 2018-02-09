@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding: utf8
+# example: python NERSpacy_train.py -nm test -o D:\Repos\prosa\NERSpacy 
 """Example of training an additional entity type
 This script shows how to add a new entity type to an existing pre-trained NER
 model. To keep the example short and simple, only four sentences are provided
@@ -25,6 +26,7 @@ from __future__ import unicode_literals, print_function
 import plac
 import random
 from pathlib import Path
+from helper.data import *
 import spacy
 
 
@@ -36,9 +38,9 @@ LABEL_BEGINNING_PPL = 'B-PPL'
 LABEL_INSIDE_PPL = 'I-PPL'
 LABEL_BEGINNING_EVT = 'B-EVT'
 LABEL_INSIDE_EVT = 'I-EVT'
-LABEL_BEGINNING_IND = 'B_IND'
-LABEL_INSIDE_IND = 'I_IND'
-LABEL_BEGINNING_FNB = 'B_FNB'
+LABEL_BEGINNING_IND = 'B-IND'
+LABEL_INSIDE_IND = 'I-IND'
+LABEL_BEGINNING_FNB = 'B-FNB'
 LABEL_INSIDE_FNB = 'I-FNB'
 LABEL_OTHER = 'O'
 
@@ -48,14 +50,14 @@ LABEL_OTHER = 'O'
 # other entity types that spaCy correctly recognized before. Otherwise, your
 # model might learn the new type, but "forget" what it previously knew.
 # https://explosion.ai/blog/pseudo-rehearsal-catastrophic-forgetting
-TRAIN_DATA = [
-    ("Presiden terpilih  JOkO WidOdO   mengungkapkan pihaknya tidak akan membedakan spesifikasi kandidat menteri yang diusung Oleh partai pOlitik pengusung maupun pendukung.", {
-        'entities': [(0, 8, 'O'), (9, 17, 'O'), (19, 23, 'B-PPL'), (24, 30, 'I-PPL'), (33, 46, 'O'), (53, 61, 'O'), (62, 67, 'O'), (68, 72, 'O'), (73, 83, 'O')]
-    }),
-        ("Presiden terpilih  JOkO WidOdO   mengungkapkan pihaknya tidak akan membedakan spesifikasi kandidat menteri yang diusung Oleh partai pOlitik pengusung maupun pendukung.", {
-        'entities': [(78, 89, 'O'), (90, 98, 'O'), (99, 106, 'O'), (107, 111, 'O'), (112, 119, 'O'), (120, 124, 'O'), (125, 139, 'O'), (140, 149, 'O'), (150, 156, 'O'), (157, 166, 'O'), (166, 167, 'O')]
-    }),
-]
+# TRAIN_DATA = [
+    # ("Presiden terpilih  JOkO WidOdO   mengungkapkan pihaknya tidak akan membedakan spesifikasi kandidat menteri yang diusung Oleh partai pOlitik pengusung maupun pendukung.", {
+    #     'entities': [(0, 8, 'O'), (9, 17, 'O'), (19, 23, 'B-PPL'), (24, 30, 'I-PPL'), (33, 46, 'O'), (53, 61, 'O'), (62, 67, 'O'), (68, 72, 'O'), (73, 83, 'O')]
+    # }),
+    #     ("Presiden terpilih  JOkO WidOdO   mengungkapkan pihaknya tidak akan membedakan spesifikasi kandidat menteri yang diusung Oleh partai pOlitik pengusung maupun pendukung.", {
+    #     'entities': [(78, 89, 'O'), (90, 98, 'O'), (99, 106, 'O'), (107, 111, 'O'), (112, 119, 'O'), (120, 124, 'O'), (125, 139, 'O'), (140, 149, 'O'), (150, 156, 'O'), (157, 166, 'O'), (166, 167, 'O')]
+    # }),
+# ]
 
 @plac.annotations(
     model=("Model name. Defaults to blank 'en' model.", "option", "m", str),
